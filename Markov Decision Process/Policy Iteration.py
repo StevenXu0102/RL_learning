@@ -79,14 +79,15 @@ def evaluate_policy(env, policy, gamma=1.0, n=200):
     return np.mean(scores)
 
 if __name__ == '__main__':
-    render = True
+    render = False
     env_name = 'FrozenLake8x8-v1' 
     if render:
         env = gym.make(env_name, render_mode='human')
     else:
         env = gym.make(env_name)
     env = env.unwrapped
-    optimal_policy = policy_iteration(env, gamma=1.0)
-    # scores = evaluate_policy(env, optimal_policy, gamma=1.0)
-    # print('Average scores = ', np.mean(scores))
+    gamma = 1.0
+    optimal_policy = policy_iteration(env, gamma)
+    optimal_scores = evaluate_policy(env, optimal_policy, gamma=1.0)
+    print('Average scores = ', np.mean(optimal_scores))
     env.close()
